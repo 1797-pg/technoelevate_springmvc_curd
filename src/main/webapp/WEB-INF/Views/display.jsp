@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@include file="Header.jsp" %>
+      <% String msg=(String)request.getAttribute("errmsg");
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Welcome to TechnoElevate</h1>
+
+ <% 
+   if(msg!=""&&!msg.isEmpty()){
+	   %>
+	   
+	   <%=msg%>
+	   <%
+	   
+	   }
+	   %>
 </body>
 </html>

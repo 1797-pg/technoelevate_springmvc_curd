@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@include file="Header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Welcome to TechnoElevate</h1>
+<fieldset>
+
+<form action="">
+<label id="name">Name</label>
+<input type="text" name="name">
+
+</form>
+</fieldset>
+
 </body>
 </html>

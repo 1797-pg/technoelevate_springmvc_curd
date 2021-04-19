@@ -22,13 +22,13 @@ public class FirstController {
 		modelAndView.setViewName("Date");
 		return modelAndView;
 	}
-	@RequestMapping(path="/search", method=RequestMethod.GET)
-	public ModelAndView getData(ModelAndView modelAndView,HttpServletRequest request) {
-		String name=request.getParameter("name");
-		modelAndView.addObject("username",name);
-		modelAndView.setViewName("newHome");
-		return modelAndView;
-	}
+//	@RequestMapping(path="/search", method=RequestMethod.GET)
+//	public ModelAndView getData(ModelAndView modelAndView,HttpServletRequest request) {
+//		String name=request.getParameter("name");
+//		modelAndView.addObject("username",name);
+//		modelAndView.setViewName("newHome");
+//		return modelAndView;
+//	}
 	@GetMapping("/login")
 	public String getForm() {
 		return "loginform";
@@ -61,6 +61,12 @@ public class FirstController {
 		modelMap.addAttribute("name",user);
 		modelMap.addAttribute("pass",password);
 		return "userDetails";
+	}
+	@RequestMapping(path="/update", method=RequestMethod.GET)
+	public ModelAndView getUpdate() {
+		ModelAndView modelAndView =new ModelAndView();
+		modelAndView.setViewName("update");
+		return modelAndView;
 	}
 	
 	
