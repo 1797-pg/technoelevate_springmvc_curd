@@ -62,12 +62,12 @@ public class FirstController {
 		modelMap.addAttribute("pass",password);
 		return "userDetails";
 	}
-	@RequestMapping(path="/update", method=RequestMethod.GET)
-	public ModelAndView getUpdate() {
-		ModelAndView modelAndView =new ModelAndView();
-		modelAndView.setViewName("update");
-		return modelAndView;
-	}
+//	@RequestMapping(path="/update", method=RequestMethod.GET)
+//	public ModelAndView getUpdate() {
+//		ModelAndView modelAndView =new ModelAndView();
+//		modelAndView.setViewName("update");
+//		return modelAndView;
+//	}
 	
 	
 	

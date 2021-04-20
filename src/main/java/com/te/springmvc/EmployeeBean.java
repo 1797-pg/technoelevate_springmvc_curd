@@ -21,7 +21,7 @@ public class EmployeeBean {
 	private String name;
 	
 	@Column(name="dob")
-	private Date birthdate;
+	private String birthdate;
 	
 	@Column
 	private String password;

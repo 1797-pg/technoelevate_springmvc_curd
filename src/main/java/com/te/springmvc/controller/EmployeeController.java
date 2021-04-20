@@ -13,19 +13,21 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.te.springmvc.EmployeeBean;
 import com.te.springmvc.dao.EmployeeDao;
+import com.te.springmvc.servicelayer.EmployeeService;
+import com.te.springmvc.servicelayer.EmployeeServiceImpl;
 
 @Controller
 public class EmployeeController {
 
 	@Autowired
-	private EmployeeDao dao;
+	private EmployeeService service;
 	@GetMapping("/emplogin")
 	public String getLoginForm() {
 		return "emplogin";
 	}
 	@PostMapping("/emplogin")
 	public String authenticate(int id,String pwd,HttpServletRequest request,ModelMap map) {
-		EmployeeBean employeeBean=dao.authenticate(id,pwd);
+		EmployeeBean employeeBean=service.authenticate(id,pwd);
 		if(employeeBean!=null) {
 			HttpSession session=request.getSession(true);
 			session.setAttribute("emp", employeeBean);
@@ -48,7 +50,7 @@ public class EmployeeController {
 	@GetMapping("/search2")
 	public String searchEmp(int id,ModelMap map,@SessionAttribute(name="emp" ,required=false)EmployeeBean employeeBean){
 		if(employeeBean!=null) {
-			EmployeeBean bean2=dao.getEmployee(id);
+			EmployeeBean bean2=service.getEmployee(id);
 			if(bean2!=null) {
 				map.addAttribute("data",bean2);
 			}else {
@@ -73,7 +75,7 @@ public class EmployeeController {
 	@GetMapping("/delete2")
 	public String deleteData(int id,@SessionAttribute(name="emp" ,required=false)EmployeeBean employeeBean,ModelMap map) {
 		if(employeeBean!=null) {
-			boolean isDeleted=dao.deleteEmpData(id);
+			boolean isDeleted=service.deleteEmpData(id);
 			if(isDeleted) {
 				map.addAttribute("msg","deleted successfully");
 			    
@@ -87,6 +89,45 @@ public class EmployeeController {
 		return "emplogin";
 		
 	}
+	@GetMapping("/addForm")
+	public String addForm(ModelMap map,HttpSession session) {
+		if(session.getAttribute("emp")!=null) {
+			return "adddetails";
+		}
+		else {
+			map.addAttribute("errmsg","please login first");
+			return "emplogin";
+		}
+	}
+	@GetMapping("/addEmployee")
+	public String addEmployee(@SessionAttribute(name="emp" ,required=false)EmployeeBean employeeBean,EmployeeBean empdata,ModelMap map) {
+		if(employeeBean!=null) {
+			if(service.addEmployee(empdata)) {
+				map.addAttribute("msg","added successfully");	
+			}
+			else {
+				map.addAttribute("errmsg","something went wrong");
+			}
+			return "adddetails";
+		}
+		return "emplogin";
+	}
 	
+	@GetMapping("/update")
+	public String getUpdateForm(@SessionAttribute(name="emp" ,required=false)EmployeeBean employeeBean,ModelMap map) {
+		if(employeeBean!=null) {
+			return "update";
+		}
+		else {
+			map.addAttribute("msg","please login first");
+			return "emplogin";
+		}
+	}
+//	@PostMapping("/update1")
+//	public String updateEmployee(EmployeeBean bean,@SessionAttribute(name="emp" ,required=false)EmployeeBean employeeBean,ModelMap map) {
+//		if(employeeBean!=null) {
+//			if(service.)
+//		}
+//	}
 }
 

@@ -4,18 +4,23 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceUnit;
 
 import org.springframework.stereotype.Repository;
 
 import com.te.springmvc.EmployeeBean;
+import com.te.springmvc.customexception.EmployeeExp;
 
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao {
 
+	@PersistenceUnit
+	EntityManagerFactory factory;
 	@Override
 	public EmployeeBean authenticate(int id, String pwd) {
 
-       EntityManagerFactory factory=Persistence.createEntityManagerFactory("springdb");
+		try {
+       
        EntityManager manager=factory.createEntityManager();
        EmployeeBean bean= manager.find(EmployeeBean.class,id);
        if(bean!=null) {
@@ -28,14 +33,18 @@ public class EmployeeDaoImpl implements EmployeeDao {
     	   }
        }else{
 		   System.out.println("user not found");
-		   return null;
+		   throw new EmployeeExp("user not found");
+		   
 	   }
+		}catch(Exception e){
+			throw new EmployeeExp("user not found");
+		}
 		
 	}
 
 	@Override
 	public EmployeeBean getEmployee(int id) {
-		 EntityManagerFactory factory=Persistence.createEntityManagerFactory("springdb");
+		 
 	       EntityManager manager=factory.createEntityManager();
 	       EmployeeBean bean= manager.find(EmployeeBean.class,id);
 	       if(bean!=null) {
@@ -50,7 +59,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
 	public boolean deleteEmpData(int id) {
-		EntityManagerFactory factory=Persistence.createEntityManagerFactory("springdb");
+		
 	       EntityManager manager=factory.createEntityManager();
 	       EntityTransaction transaction=manager.getTransaction();
 	       EmployeeBean bean= manager.find(EmployeeBean.class,id);
@@ -68,5 +77,31 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		
 		
 	}
+
+	@Override
+	public boolean addEmployee(EmployeeBean bean) {
+		
+	       EntityManager manager=factory.createEntityManager();
+	       EntityTransaction transaction=manager.getTransaction();
+	       EmployeeBean info= manager.find(EmployeeBean.class,bean.getId());
+	       if(info!=null) {
+	    	   info.setId(bean.getId());
+	       }
+	       if(info.getName()!=null) {
+	    	 info.setName(bean.getName());
+	       }
+	       if(info.getBirthdate()!=null) {
+	    	   info.setBirthdate(bean.getBirthdate());
+	       }
+	       boolean isAdded=false;
+	       transaction.begin();
+	       manager.persist(info);
+	       transaction.commit();
+	       isAdded=true;
+	       return isAdded;
+	      
+		
+	}
+	
 
 }

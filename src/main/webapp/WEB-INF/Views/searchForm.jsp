@@ -9,11 +9,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Insert title here</title>a
 </head>
 <body>
 
+ <%if(msg!=null&&msg.isEmpty()) {%>
  <h1> <%=msg%></h1>
+ <% }%>
 
 <fieldset>
 <form action="./search2">

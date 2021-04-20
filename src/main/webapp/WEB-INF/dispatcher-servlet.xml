@@ -12,6 +12,8 @@
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	
  <mvc:annotation-driven></mvc:annotation-driven>
+ <mvc:interceptors>
+ <bean class="com.te.springmvc.MyInterceptor"></bean></mvc:interceptors>
  <context:component-scan base-package="com.te.springmvc"></context:component-scan>
  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
  <property name="prefix" value="/WEB-INF/Views/"></property>

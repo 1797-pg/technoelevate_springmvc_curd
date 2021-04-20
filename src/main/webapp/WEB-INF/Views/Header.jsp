@@ -11,7 +11,7 @@
 <tr>
 <th font-size="20px"><a href="./search">Search Employee</a></th>
 <th font-size="20px"><a href="./addForm">Add Employee</a></th>
-<th font-size="20px"><a href="./updateForm">Update Employee</a></th>
+<th font-size="20px"><a href="./update">Update Employee</a></th>
 <th font-size="20px"><a href="./delete">Delete Employee</a></th>
 <th font-size="20px"><a href="./allForm">All Employee details</a></th>
 <th font-size="20px"><a href="./logoutForm">Logout</a></th>
